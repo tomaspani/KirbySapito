@@ -11,9 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _movSpeed;
     [SerializeField] private float _rotSpeed;
     [SerializeField] private float _jumpForce;
-    [Header("Controls")]
-    [SerializeField] private KeyCode _jumpKey;
-
+    
     private float _xAxis, _zAxis;
 
     private Animator _myAnim;
@@ -34,9 +32,10 @@ public class PlayerMovement : MonoBehaviour
         _xAxis = Input.GetAxisRaw("Horizontal");
         _zAxis = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(_jumpKey))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+            Debug.Log("salto");
         }
 
         if (Input.GetKeyDown(KeyCode.E))
