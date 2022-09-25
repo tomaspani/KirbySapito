@@ -5,9 +5,10 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     public Transform player;
+    public GameObject camerapos;
 
     void Update()
     {
-        transform.position = player.transform.position + new Vector3(0, 5, -5);
+        transform.position = camerapos.transform.position;
     }
 }
