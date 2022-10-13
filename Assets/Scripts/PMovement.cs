@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [RequireComponent(typeof(Rigidbody))]
 public class PMovement : MonoBehaviour
 {
     private Rigidbody _myRB;
+    private Camera _mainCamera;
 
     [Header("Values")]
     [SerializeField] private float _movSpeed;
@@ -27,12 +29,25 @@ public class PMovement : MonoBehaviour
     {
         _myAnim = GetComponentInChildren<Animator>();
         _myRB = GetComponent<Rigidbody>();
+        _mainCamera = FindObjectOfType<Camera>();
     }
 
     private void Update()
     {
         _xAxis = Input.GetAxisRaw("Horizontal");
         _zAxis = Input.GetAxisRaw("Vertical");
+
+        Ray cameraRay = _mainCamera.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        float raylenght;
+
+        if (groundPlane.Raycast(cameraRay, out raylenght))
+        {
+            Vector3 pointToLook = cameraRay.GetPoint(raylenght);
+            Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+
+            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -84,12 +99,12 @@ public class PMovement : MonoBehaviour
 
     private void Move(float xAxis, float zAxis)
     {
-        var dir = (transform.right * xAxis + transform.forward * zAxis).normalized;
+        //var dir = (transform.right * xAxis + transform.forward * zAxis).normalized;
+        Vector3 moveInput = new Vector3(xAxis, 0f, zAxis).normalized;
+        //_myRB.MovePosition(transform.position + dir * _movSpeed * Time.fixedDeltaTime);
+        _myRB.MovePosition(transform.position + moveInput * _movSpeed * Time.fixedDeltaTime);
 
-        _myRB.MovePosition(transform.position + dir * _movSpeed * Time.fixedDeltaTime);
     }
-
-
 
     private void Jump()
     {
