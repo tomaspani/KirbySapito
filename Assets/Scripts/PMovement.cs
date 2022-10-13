@@ -19,8 +19,9 @@ public class PMovement : MonoBehaviour
     [SerializeField] private string _xAxisName;
     [SerializeField] private string _zAxisName;
 
-    [SerializeField]
-    private AnimationClip _jumpAnimation;
+    [SerializeField] private AnimationClip _jumpAnimation;
+
+    [SerializeField] private AnimationClip _shootAnimation;
 
     private void Awake()
     {
@@ -45,13 +46,31 @@ public class PMovement : MonoBehaviour
         {
             StartCoroutine(crOnPunch());
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartCoroutine(crOnShoot());
+        }
     }
 
     private IEnumerator crOnPunch()
     {
+        var speed = _movSpeed;
+        _movSpeed = 0;
         _myAnim.SetTrigger("onPunch");
         yield return new WaitForSeconds(_punchAnimation.length);
         _myAnim.SetTrigger("onEndPunch");
+        _movSpeed = speed;
+    }
+
+    private IEnumerator crOnShoot()
+    {
+        var speed = _movSpeed;
+        _movSpeed = 0;
+        _myAnim.SetTrigger("onShoot");
+        yield return new WaitForSeconds(_shootAnimation.length);
+        _myAnim.SetTrigger("onEndShoot");
+        _movSpeed = speed;
     }
 
     private void FixedUpdate()
