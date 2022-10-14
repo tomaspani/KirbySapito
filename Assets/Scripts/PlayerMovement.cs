@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private string _zAxisName;
     [SerializeField] private AnimationClip _shootAnimation;
 
+    public GunController gun;
 
 
     private void Start()
@@ -73,7 +74,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            gun.isFiring = true;
             StartCoroutine(crOnShoot());
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            gun.isFiring = false;
+
         }
     }
 
@@ -129,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         var speed = _moveSpeed;
         _moveSpeed = 0;
         _myAnim.SetTrigger("onShoot");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(gun.shotDelay);
         _myAnim.SetTrigger("onEndShoot");
         _moveSpeed = speed;
     }

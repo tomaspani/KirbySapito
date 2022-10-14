@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class CursorController : MonoBehaviour
 {
+
+    public Texture2D cursorAim;
+
     private void Start()
     {
-        Cursor.visible = false;
+        Cursor.SetCursor(cursorAim, Vector3.zero, CursorMode.ForceSoftware);
     }
 
     private void Update()
