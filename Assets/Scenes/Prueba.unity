@@ -4654,6 +4654,8 @@ MonoBehaviour:
   _maxLife: 100
   _damage: 50
   player: {fileID: 1891459612}
+  _chaseRadius: 10
+  _attackRadius: 1
 --- !u!195 &833803876
 NavMeshAgent:
   m_ObjectHideFlags: 0

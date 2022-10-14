@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public GameObject controlsUI;
+    public GameObject generalUI;
+
+
     public void Play()
     {
         SceneManager.LoadScene("Prueba");
@@ -12,10 +16,16 @@ public class MenuManager : MonoBehaviour
 
     public void HowToPlay()
     {
-        //SceneManager.LoadScene("Controles");
+        controlsUI.SetActive(true);
+        generalUI.SetActive(false);
     }
 
-  
+    public void Atras()
+    {
+        controlsUI.SetActive(false);
+        generalUI.SetActive(true);
+    }
+
 
     public void Exit()
     {
