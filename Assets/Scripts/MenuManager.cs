@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     public void Play()
     {
-        //SceneManager.LoadScene("Juego");
+        SceneManager.LoadScene("Prueba");
     }
 
     public void HowToPlay()
@@ -15,10 +15,7 @@ public class MenuManager : MonoBehaviour
         //SceneManager.LoadScene("Controles");
     }
 
-    public void Try()
-    {
-        SceneManager.LoadScene("Prueba");
-    }
+  
 
     public void Exit()
     {

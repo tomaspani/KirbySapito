@@ -10,8 +10,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private float _life;
     [SerializeField] private float _maxLife;
     [SerializeField] private float _damage;
-    [SerializeField] private float _speed;
-    protected NavMeshAgent _navMeshAgent; //esta bien asi???????
+    protected NavMeshAgent _navMeshAgent;
 
 
     public abstract void Attack();

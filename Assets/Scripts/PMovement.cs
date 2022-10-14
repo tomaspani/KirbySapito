@@ -99,10 +99,15 @@ public class PMovement : MonoBehaviour
 
     private void Move(float xAxis, float zAxis)
     {
+
+        Vector3 moveDirection = transform.forward * zAxis + transform.right * xAxis;
+
+        //_myRB.AddForce(moveDirection.normalized * _movSpeed * 10f, ForceMode.Force);
         //var dir = (transform.right * xAxis + transform.forward * zAxis).normalized;
         Vector3 moveInput = new Vector3(xAxis, 0f, zAxis).normalized;
         //_myRB.MovePosition(transform.position + dir * _movSpeed * Time.fixedDeltaTime);
         _myRB.MovePosition(transform.position + moveInput * _movSpeed * Time.fixedDeltaTime);
+
 
     }
 

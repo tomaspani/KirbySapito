@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class CommonZombie : Enemy
 {
+    public Transform player;
     private Rigidbody _myRB;
     private Animator _myAnim;
 
@@ -14,6 +15,12 @@ public class CommonZombie : Enemy
         _myAnim = GetComponentInChildren<Animator>();
         _myRB = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+
+    private void FixedUpdate()
+    {
+        _navMeshAgent.SetDestination(player.position);
+        transform.LookAt(player);
     }
 
     public override void Attack()

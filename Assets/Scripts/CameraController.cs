@@ -7,9 +7,13 @@ public class CameraController : MonoBehaviour
     public GameObject cameraPos;
     Vector3 moveInput;
     bool canMove = true;
+
+    public Transform target;
+
+
     private void FixedUpdate()
     {
-        if(canMove == true)Move(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        transform.position = new Vector3(target.position.x, 22f, target.position.z -12f);
     }
 
     private void Move(float xAxis, float zAxis)
