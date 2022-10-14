@@ -6,8 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float _moveSpeed;
-
-
+    float startSpeed;
     public float groundDrag;
 
     [Header("Grounde Check")]
@@ -40,12 +39,11 @@ public class PlayerMovement : MonoBehaviour
         myRb.freezeRotation = true;
         _mainCamera = FindObjectOfType<Camera>();
         _myAnim = GetComponentInChildren<Animator>();
-
+        startSpeed = _moveSpeed;
     }
 
     private void Update()
     {
-        _grounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.2f, ground);
         Ray cameraRay = _mainCamera.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         float raylenght;
@@ -57,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
             transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
         }
+
+        _grounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.2f, ground);
 
         MyInput();
         SpeedControl();
@@ -74,22 +74,27 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            gun.isFiring = true;
+            gun.setIsFiring(true);
             StartCoroutine(crOnShoot());
         }
         if (Input.GetMouseButtonUp(0))
         {
-            gun.isFiring = false;
+            gun.setIsFiring(false);
 
         }
     }
 
+
+
     private void FixedUpdate()
     {
-       
-       MovePlayer();
-        _myAnim.SetFloat(_xAxisName, _horizontalInput);
-        _myAnim.SetFloat(_zAxisName, _verticalInput);
+        if (!gun.getIsFiring())
+        {
+            MovePlayer();
+            _myAnim.SetFloat(_xAxisName, _horizontalInput);
+            _myAnim.SetFloat(_zAxisName, _verticalInput);
+        }
+        
     }
 
     private void MyInput()
@@ -133,12 +138,11 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator crOnShoot()
     {
-        var speed = _moveSpeed;
         _moveSpeed = 0;
         _myAnim.SetTrigger("onShoot");
         yield return new WaitForSeconds(gun.shotDelay);
         _myAnim.SetTrigger("onEndShoot");
-        _moveSpeed = speed;
+        _moveSpeed = startSpeed;
     }
 
 }

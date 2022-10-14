@@ -10,11 +10,21 @@ public class GunController : MonoBehaviour
     public float shotCounter;
 
     public Transform pointToShoot;
-    public bool isFiring;
+    private bool isFiring;
 
     private void Start()
     {
         
+    }
+
+    public bool getIsFiring()
+    {
+        return isFiring;
+    }
+
+    public void setIsFiring(bool val)
+    {
+        isFiring = val;
     }
 
     private void Update()

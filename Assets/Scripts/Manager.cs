@@ -4,17 +4,32 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float _enemysToKillInWave;
+    [SerializeField] private float _waves;
+
+    private float currentWave;
+    private float currentEnemies;
+
+
+    private void Start()
     {
-        
+        currentEnemies = _enemysToKillInWave;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-       //cuando se matan a todos los enemigos de la primera oleada, empieza la segunda y spawnean los enemigos
-       // cuando se terminan las oleadas, se abre la puerta!!!!!
-        
+        if (currentEnemies == 0)
+        {
+            if(currentWave == _waves)
+            {
+                //Abrir puerta
+            }
+            else
+            {
+                currentWave++;
+                currentEnemies = _enemysToKillInWave;
+            }
+            
+        }
     }
 }

@@ -17,9 +17,9 @@ public class HealthManager : MonoBehaviour
         _health = _maxHealth;
     }
 
-    void TakeDamage()
+    public void TakeDamage(float val)
     {
-
+        _health -= val;
     }
 
     private void OnTriggerEnter(Collider other)
