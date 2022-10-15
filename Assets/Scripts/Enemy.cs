@@ -30,6 +30,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void DestroyObject()
     {
+        _manager.EnemyDown();
         Destroy(this.gameObject);
     }
 }

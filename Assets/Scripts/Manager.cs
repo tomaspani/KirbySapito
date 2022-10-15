@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    [SerializeField] private float _enemysToKillInWave;
-    [SerializeField] private float _waves;
+    [SerializeField] private int _enemysToKillInWave;
+    [SerializeField] private int _waves;
 
-    private float currentWave;
-    private float currentEnemies;
+    public Transform door;
 
+    private int _currentWave = 1;
+    private int currentEnemies;
+
+    
 
     private void Start()
     {
@@ -20,16 +23,38 @@ public class Manager : MonoBehaviour
     {
         if (currentEnemies == 0)
         {
-            if(currentWave == _waves)
+            if(_currentWave == _waves)
             {
-                //Abrir puerta
+                OpenDoor();
             }
             else
             {
-                currentWave++;
+                _currentWave++;
                 currentEnemies = _enemysToKillInWave;
             }
             
         }
+    }
+
+    public void EnemyDown()
+    {
+        currentEnemies--;
+    }
+
+
+    public int getCurrentWave()
+    {
+        return _currentWave;
+    }
+
+    public int getWaves()
+    {
+        return _waves;
+    }
+
+    private void OpenDoor()
+    {
+        if (door.transform.position.x < 6f)
+            door.transform.position += Vector3.right * 5f * Time.deltaTime;
     }
 }
