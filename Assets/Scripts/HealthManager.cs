@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class HealthManager : MonoBehaviour
@@ -10,7 +9,15 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _health;
 
-    public Image myBar;
+    public float getHealth()
+    {
+        return _health;
+    }
+
+    public float getMaxHealth()
+    {
+        return _maxHealth;
+    }
 
     internal void Initalize()
     {
@@ -21,18 +28,4 @@ public class HealthManager : MonoBehaviour
     {
         _health -= val;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Spikes spike = other.gameObject.GetComponent<Spikes>();
-
-        if (spike)
-        {
-            //spike._damage --> como entro si es privado??
-            _health -= 5;
-        }
-
-        myBar.fillAmount = _health / _maxHealth;
-    }
-
 }

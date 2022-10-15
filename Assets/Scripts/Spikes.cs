@@ -22,4 +22,12 @@ public class Spikes : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            other.GetComponent<HealthManager>().TakeDamage(_damage);
+        }
+    }
+
 }
